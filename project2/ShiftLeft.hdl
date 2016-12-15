@@ -1,0 +1,9 @@
+CHIP ShiftLeft{
+     IN in[16];
+     OUT out[16];
+     
+     PARTS:
+     Add16(a = in, b = in, out[0..14] = out[0..14], out[15] = ignoredBit);
+     // the sign bit
+     And(a = in[15], b = true, out = out[15]);
+}

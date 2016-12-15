@@ -1,0 +1,50 @@
+roigreenberg,inbaravni
+
+===============================================================================
+
+Roi Greenberg, ID 30557123, roi.greenberg@mail.huji.ac.il
+Inbar Avni, ID 201131760, inbar.avni@mail.huji.ac.il
+
+===============================================================================
+
+
+
+                           Project 6 - The Assembler
+
+                           ------------------------
+
+
+
+
+
+
+Submitted Files
+
+---------------
+
+
+Parser.java - a module that reads an assembly language command,
+			  parses it, and provides convenient access to the command’s
+			  components.
+
+Code.java - a module that translates Hack assembly language mnemonics into
+			binary codes.
+
+SymbolTable - a module that keeps a correspondence between symbolic labels
+			 and numeric addresses.
+
+Assembler.java - the main part of our program, resposiple to run all parts of the
+			assembler together.
+
+
+
+Makefile.
+Assembler - a script for execute the correct command.
+README - This file.
+
+
+Remarks
+
+-------
+
+* No remarks for that time.

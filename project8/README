@@ -1,0 +1,37 @@
+roigreenberg,inbaravni
+
+===============================================================================
+
+Roi Greenberg, ID 30557123, roi.greenberg@mail.huji.ac.il
+Inbar Avni, ID 201131760, inbar.avni@mail.huji.ac.il
+
+===============================================================================
+
+
+
+             Project 8 - Virtual Machine II - Control
+
+             ----------------------------------------
+
+
+
+
+
+
+Submitted Files
+
+---------------
+
+README - This file.
+
+VMtranslator.py - the main.
+Parser.py - parse the file
+codeWriter.py - write the assembly code
+VMtranslator - An executable.
+Makefile - a makefile.
+
+Remarks
+
+-------
+
+* No remarks for that time.

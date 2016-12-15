@@ -1,0 +1,44 @@
+roigreenberg,inbaravni
+
+===============================================================================
+
+Roi Greenberg, ID 30557123, roi.greenberg@mail.huji.ac.il
+Inbar Avni, ID 201131760, inbar.avni@mail.huji.ac.il
+
+===============================================================================
+
+
+
+				Project 9 - High Level Language
+
+				--------------------------------
+
+
+
+
+
+
+Submitted Files
+
+---------------
+
+README - This file.
+
+Main.jack - the main.
+SnakeGame.jack - The game
+Snake.jack - Represent the snake head in the game
+Food.jack - Represent the food in the game
+List.jack - A linked List class
+Node.jack - A node class
+
+Remarks
+
+-------
+
+To start the game, you should choose the game speed, a number between 0 and 9.
+Any other choose will be treated as 9(fastest).
+The snake is always moving and can turn with pressing on the arrows keys.
+Not that the pressing sometimes need to be little long for the game to recognize the press.
+The game will be over if the snake will touch the walls or bite itself 
+
+To quit from the game press Q.

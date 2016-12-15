@@ -1,0 +1,92 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Memory.jack
+
+/**
+ * Memory operations library.
+ */ 
+class Memory {
+    static Array memory;
+    static int freeList;
+    static int next;
+
+    /** Initializes memory parameters. */
+    function void init() {
+        let memory = 0; // maybe 0?
+        let freeList = 2048;
+        let next = 1;
+        let memory[freeList] = 14333;
+        let memory[freeList + next] = 0;
+        return;
+    }
+
+    /** Returns the value of the main memory at the given address. */
+    function int peek(int address) {
+        return memory[address];
+    }
+
+    /** Sets the value of the main memory at this address
+     *  to the given value. */
+    function void poke(int address, int value) {
+        let memory[address] = value;
+        return;
+    }
+
+    /** finds and allocates from the heap a memory block of the 
+     *  specified size and returns a reference to its base address. */
+    function int alloc(int size) {
+        var int addr;
+        var int len;
+        var int next_block;
+        var int block;
+        var boolean found;
+
+        let found = false;
+        let addr = freeList;
+
+        while(~(found)) {
+            let len = Memory.peek(addr);
+            let next_block = Memory.peek(addr + next);
+
+            if( len > size ) {
+                let len = len - (size + 1);
+                do Memory.poke(addr, len);
+                let block = addr + len + 2;
+                do Memory.poke(block - 1, size + 1);
+                return block;
+
+            }
+            let addr = next_block;
+
+            if (addr = 0) {
+                do Sys.error(5);
+            }
+
+        }
+        return block;
+    }
+
+    /** De-allocates the given object and frees its space. */
+    function void deAlloc(int object) {
+        var int addr;
+        var int next_block;
+        var boolean found;
+
+        let addr = freeList;
+        let next_block = Memory.peek(addr + next);
+        let found = (next_block = 0);
+
+        while(~(found)) {
+            let addr = next_block;
+            let next_block = Memory.peek(addr + next);
+            let found = (next_block = 0);
+        }
+
+        do Memory.poke(addr + next, object - 1);
+        do Memory.poke(object - 1, Memory.peek(object - 1) - 2);
+        do Memory.poke(object, 0);
+
+        return;
+    }    
+}

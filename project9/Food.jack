@@ -1,0 +1,64 @@
+class Food {
+	field int x;
+	field int y;
+	//field Food food;
+
+	constructor Food new() {
+	    let x = 100;
+		let y = 100;
+		do next();
+	    return this;
+	}
+	
+	method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+	
+	method void next() {
+		do Screen.setColor(false);
+		do Screen.drawRectangle(x, y, x + 4, y + 4);
+		do nextX();	
+		do nextY();
+		do Screen.setColor(true);
+		do Screen.drawRectangle(x, y, x + 4, y + 4);
+		
+		return;
+	}
+	
+	method boolean hit(int hx,int hy) {
+		var int i, j;
+		let i = 0;
+		let j = 0;
+		
+		if ((((x - 1) < hx)&((y - 1) < hy))&(((x + 5) > hx)&((y + 5) > hy))) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	method void nextX () {
+		while (true) {
+			let x = Math.multiply(x , 373) - Math.multiply(Math.divide(Math.multiply(x , 373), 491), 491) + 15;
+			if ((x < 496)&(x > 15)){
+				return;
+			}
+		}
+		return;
+	}
+	
+	method void nextY () {
+		while (true) {
+			let y = Math.multiply(y , 151) - Math.multiply(Math.divide(Math.multiply(y , 151), 227), 227) + 15;
+			if ((y < 236)&(y > 15)){
+				return;
+			}
+		}
+		return;
+		
+		
+	}
+}
+
+

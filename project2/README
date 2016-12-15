@@ -1,0 +1,45 @@
+roigreenberg,inbaravni
+
+===============================================================================
+
+Roi Greenberg, ID 30557123, roi.greenberg@mail.huji.ac.il
+Inbar Avni, ID 201131760, inbar.avni@mail.huji.ac.il
+
+===============================================================================
+
+
+
+                           Project 2 - Combinational Chips
+
+                           -------------------------------
+
+
+
+
+
+
+Submitted Files
+
+---------------
+
+README - This file.
+
+HalfAdder.hdl - The HalfAdder chip.
+FullAdder.hdl - The FullAdder chip.
+Add16.hdl - 16-bit Adder chip.
+Inc16.hdl - 16-bit Incrementer chip.
+ALU.hdl - Arithmetic Logic Unit chip.
+ShiftLeft.hdl - A chip that multiply by 2 its input (the sign should not change).
+ShiftRight.hdl - A chip that divide by 2 its input (the sign should not change).
+Mul.hdl - A chip that multiply 2 numbers.
+
+
+
+
+
+
+Remarks
+
+-------
+
+* No remarks for that time.

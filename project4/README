@@ -1,0 +1,26 @@
+roigreenberg,inbaravni
+===============================================================================
+Roi Greenberg, ID 30557123, roi.greenberg@mail.huji.ac.il
+Inbar Avni, ID 201131760, inbar.avni@mail.huji.ac.il
+===============================================================================
+
+                           Project 4 - Machine Language Programming
+                           ----------------------------------------
+  
+
+Submitted Files
+---------------
+README - This file.
+Mult.asm - this program computes the value R0*R1 and stores the result in R2.
+Fill.asm - the program runs an infinite loop that listens to the keyboard input.
+	   When any key is pressed, the program blackens the screen. When no
+	   key is pressed, the program clears the screen.
+Sort.asm - The program should sort the array starting at the address in R14
+	   with length specified in R15.
+Divide.asm - The program input will be at R13,R14 while the result R13/R14
+	     will be store at R15.
+
+
+Remarks
+-------
+:)

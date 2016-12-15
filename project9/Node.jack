@@ -1,0 +1,46 @@
+
+
+class Node {
+
+	field int x, y;
+	field Node next, prev;
+	//static Node head;
+	
+	
+	/*constructor Node new(int givenX, int givenY){
+
+		let x = givenX;
+		let y = givenY;
+		
+		if (head = null){
+			let head = this;
+			let next = this;
+		} else {
+			let next = head;
+		}
+		
+		let prev = null;
+		
+		return this;
+	}*/
+
+
+	constructor Node new(int givenX, int givenY, Node givenNext, Node givenPrev){
+
+		let x = givenX;
+		let y = givenY;
+		let next = givenNext;
+		let prev = givenPrev;
+
+		return this;
+	}
+
+	
+	method void dispose(){
+		
+		do Memory.deAlloc(this);		
+		
+		return;
+	}
+		
+}

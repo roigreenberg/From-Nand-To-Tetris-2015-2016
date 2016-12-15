@@ -1,0 +1,85 @@
+
+
+class List {
+
+	field Node head;
+	field Node tail;
+	
+	constructor List new(int givenX, int givenY){
+		
+		var int i;
+		let i = 20;
+		while (i > 0){
+			let i = i - 1;
+			do newLink(givenX, givenY + i);	
+		}
+		return this;
+	}
+
+
+
+	method void newLink(int givenX, int givenY){
+
+		var Node newNode;
+
+		if (head = null){
+			let newNode = Node.new(givenX, givenY, null, null);
+			let tail = newNode;
+		} else {
+			let newNode = Node.new(givenX, givenY, head, null);
+			let head[3] = newNode;
+		}
+
+		let head = newNode;
+		do Screen.setColor(true);
+		do Screen.drawPixel(givenX, givenY);
+		return;
+	}
+
+
+	method void removeLink(){
+
+		
+		var Node nodeToBeTail;
+		let nodeToBeTail = tail[3];
+		let nodeToBeTail[2] = null;
+		do tail.dispose();
+		let tail = nodeToBeTail;
+		do Screen.setColor(false);
+		do Screen.drawPixel(nodeToBeTail[0], nodeToBeTail[1]);
+		return;
+	}
+
+	
+	method boolean isInList(int givenX, int givenY){
+
+		var Node curNode;		
+		let curNode = head;
+				
+		while (~(curNode = null)){
+			
+			if ((curNode[0] = givenX) & (curNode[1] = givenY)){
+				return true;
+			}
+			let curNode = curNode[2];
+		}
+		return false;
+	}
+
+
+	method void dispose(){
+		
+		var Node curNode, tmpNode;		
+		let curNode = head;
+
+		while (~(curNode = null)){
+			let tmpNode = curNode[2];
+			do curNode.dispose();
+			let curNode = tmpNode;
+		}
+		do Memory.deAlloc(this);
+		return;
+	}
+
+
+}

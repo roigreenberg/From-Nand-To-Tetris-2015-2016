@@ -1,0 +1,252 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Screen.jack
+
+/**
+ * Graphic screen library.
+ */
+class Screen {
+
+	static boolean currColor;
+	static Array bitIndex;
+
+    /** Initializes the Screen. */
+    function void init() {
+
+    	let bitIndex = Math.power_of_two();
+    	let currColor = true;
+
+    	return;
+    }
+
+    /** Erases the whole screen. */
+    function void clearScreen() {
+
+    	do Screen.setColor(false);
+    	do Screen.drawRectangle(0, 0, 511, 255);
+    	do Screen.setColor(true);
+
+    	return;
+
+    }
+
+    /** Sets the color to be used in further draw commands
+     *  where white = false, black = true. */
+    function void setColor(boolean b) {
+    	
+    	let currColor = b;
+    	return;
+    
+    }
+
+    /** function void drawPixel(int x, int y) {
+        var int, pos, screenLoc, address, val;
+        let screenLoc = 16384;
+        let pos = screenLoc + (y * 32) + (x / 16);
+        let val = Memory.peek(pos);
+
+        //draw black pixel
+        if (currColor) {
+            let val = -1;
+
+        //draw white pixel
+        } else {
+            let val = 0;
+        }
+
+        // set the pixel
+        do Memory.poke(pos, val);
+
+        return;
+    } */
+
+    /** Draws the (x, y) pixel. */
+    function void drawPixel(int x, int y) {
+
+    	var int bitInPos, pos, screenLoc, address, val;
+    	let bitInPos = Math.mod16(x); // col % 16
+    	let screenLoc = 16384;
+    	let pos = screenLoc + Math.multiplyByTwo(y , 5) + (x / 16);
+    	let val = Memory.peek(pos);
+
+    	//draw black pixel
+    	if (currColor) {
+    		let val = val | bitIndex[bitInPos];
+
+    	//draw white pixel
+    	} else {
+    		let val = val & ~bitIndex[bitInPos];
+    	}
+
+    	// set the pixel
+    	do Memory.poke(pos, val);
+
+    	return;
+
+    }
+
+    function void drawHLine(int x1, int x2, int y, int pos) {
+        //var int pos;
+
+        if (Math.mod16(x1) > 0) {
+            let pos = pos + 1;
+        }
+
+        while ((~(x1 > x2)) & (Math.mod16(x1) > 0)){
+            do Screen.drawPixel(x1, y);
+            let x1 = x1 + 1;
+        }
+
+        //let pos = 16384 + Math.multiplyByTwo(y , 5) + (x1 / 16);
+
+        while (~(x1 + 16 > x2)){
+            //draw black pixel
+            if (currColor) {
+                do Memory.poke(pos, -1);
+
+            //draw white pixel
+            } else {
+                do Memory.poke(pos, 0);
+            }
+            let pos = pos + 1;
+            let x1 = x1 + 16;
+        }
+
+        while (~(x1 > x2)){
+            do Screen.drawPixel(x1, y);
+            let x1 = x1 + 1;
+        }
+
+        return;
+    }
+
+    /** Draws a line from (x1, y1) to (x2, y2). */
+    function void drawLine(int x1, int y1, int x2, int y2) {
+
+    	var int tmp, fillGapX, fillGapY, gapX, gapY, directY;
+
+    	if (~(x1 < x2)) {
+
+    		let tmp = x1;
+    		let x1 = x2;
+    		let x2 = tmp;
+
+    		let tmp = y1;
+    		let y1 = y2;
+    		let y2 = tmp;
+    	}
+    	do Screen.drawPixel(x1, y1);
+
+    	let fillGapX = 0;
+    	let fillGapY = 0;
+    	let gapY = y2 - y1;
+    	let gapX = x2 - x1;
+
+
+    	if (gapY = 0){
+            do Screen.drawHLine(x1, x2, y1, 16384 + Math.multiplyByTwo(y1 , 5) + (x1 / 16));
+    		/*while (~(fillGapX = gapX)){
+    			let fillGapX = fillGapX + 1;
+    			do Screen.drawPixel(x1 + fillGapX, y1);
+    		}*/
+			return;
+    	}
+
+
+    	if (gapX = 0){
+
+            if (gapY < 0){
+                let directY = -1;
+            } else {
+                let directY = 1;
+            }
+
+    		while (~(fillGapY = gapY)){
+    			let fillGapY = fillGapY + directY;
+    			do Screen.drawPixel(x1, y1 + fillGapY);
+    		}
+    		return;
+    	}
+
+    	/** while ((fillGapX = gapX) & (~(fillGapY = gapY))){
+
+    		if (((fillGapX * gapY) - (fillGapY * gapX)) < 0){
+    			let fillGapX = fillGapX + 1;
+    		} else {
+    			let fillGapY = fillGapY + directY;
+    		}
+    		do Screen.drawPixel(x1 + fillGapX, y1 + fillGapY);
+
+    	} */
+
+        while ((fillGapX < gapX) & (fillGapY < gapY)){
+
+            if (((fillGapX * gapY) - (fillGapY * gapX)) < 0){
+                let fillGapX = fillGapX + 1;
+            } else {
+                let fillGapY = fillGapY + 1;
+            }
+            do Screen.drawPixel(x1 + fillGapX, y1 + fillGapY);
+
+        }
+
+        while ((fillGapX < gapX) & (fillGapY > gapY)){
+
+            if (((fillGapX * gapY) - (fillGapY * gapX)) > 0){
+                let fillGapX = fillGapX + 1;
+            } else {
+                let fillGapY = fillGapY - 1;
+            }
+            do Screen.drawPixel(x1 + fillGapX, y1 + fillGapY);
+
+        }
+
+
+    	return;
+    }
+
+
+
+    /** Draws a filled rectangle where the top left corner
+     *  is (x1, y1) and the bottom right corner is (x2, y2). */
+    function void drawRectangle(int x1, int y1, int x2, int y2) {
+
+    	var int gapX, gapY, fillGapX, fillGapY, pos;
+
+    	let gapX = x2 - x1;
+    	let gapY = y2 - y1;
+    	let fillGapX = 0;
+    	let fillGapY = 0;
+        let pos = 16384 + (y1 * 32) + (x1 / 16);
+        while (~(fillGapY > gapY)){
+            //do Screen.drawLine(x1, y1 + fillGapY, x2, y1 + fillGapY);
+            do Screen.drawHLine(x1, x2, y1 + fillGapY, pos);
+            let pos = pos + 32;
+            let fillGapY = fillGapY + 1;
+        }
+
+
+    	return;
+    }
+
+    /** Draws a filled circle of radius r around (cx, cy). */
+    function void drawCircle(int cx, int cy, int r) {
+
+    	var int gapX, gapY, sqrt, cx_minus, cx_plus, cy_minus, cy_plus;
+
+    	let gapY = -r;
+    	while(~(gapY = 0)){
+    		let sqrt = Math.sqrt((r * r) - (gapY * gapY));
+    		let cx_minus = cx - sqrt;
+    		let cx_plus = cx + sqrt;
+    		let cy_minus = cy - gapY;
+    		let cy_plus = cy + gapY;
+    		let gapY = gapY + 1;
+    		do Screen.drawLine(cx_minus, cy_minus, cx_plus, cy_minus);
+    		do Screen.drawLine(cx_minus, cy_plus, cx_plus, cy_plus);
+    	}
+    	do Screen.drawLine(cx - r, cy, cx + r, cy);
+    	return;
+    }
+}

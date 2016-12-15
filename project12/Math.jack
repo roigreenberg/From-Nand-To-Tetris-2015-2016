@@ -1,0 +1,186 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Math.jack
+
+/**
+ * A basic math library.
+ */
+class Math {
+    static Array p_o_t;
+    /** Initializes the library. */
+    function void init() {
+        var int i;
+        let i = 0;
+        let p_o_t = Array.new(16);
+        let p_o_t[0] = 1;
+        while(i < 15) {
+            let i = i + 1;
+            let p_o_t[i] = p_o_t[i - 1] + p_o_t[i - 1];
+        }
+        return;
+
+    }
+
+    /** Returns the absolute value of x. */
+    function int abs(int x) {
+        if (x < 0) {
+            return -x;
+        }
+        return x;
+    }
+
+    /** Returns the product of x and y. */
+    function int multiply(int x, int y) {
+        var int sum;
+        var int shiftX;
+        var int j;
+
+        let sum = 0;
+        let shiftX = x;//Math.abs(x);
+        let j = 0;
+
+        while (j < 16) { // n . 15 maybe??
+            if (Math.bit(y, j) = true) {
+                let sum = sum + shiftX;
+            }
+            let shiftX = shiftX + shiftX;
+            let j = j + 1;
+        }
+        /*if (((x < 0) & (y < 0)) | ((x > 0) & (y > 0))) {
+        if (y < 0) {
+            let sum = -sum;
+        }*/
+        return sum;
+    }
+
+    function int multiplyByTwo(int x, int j) {
+        var int sum, i;
+        let sum = x;
+        let i = 0;
+        while ( i < j){
+            let sum = sum + sum;
+            let i = i + 1;
+        }
+        return sum;
+    }
+
+    /** Returns the integer part of x/y. */
+    function int divide(int x, int y) {
+        var int q;
+        var int ax;
+        var int ay;
+
+
+
+        let ax = Math.abs(x);
+        let ay = Math.abs(y);
+
+        /*//do Output.printInt(x);
+        //do Output.printString("|");
+        //do Output.printInt(y);
+        //do Output.printString("||||");
+        //do Output.printInt(ax);
+        //do Output.printString("|");
+        //do Output.printInt(ay);
+
+        //do Output.println();
+        //do Output.printString("*****");
+        //do Output.println();
+*/
+        if (ay > ax) {
+            return 0;
+        }
+
+        if (((x < 0) & (y < 0)) | ((x > 0) & (y > 0))) {
+            return Math.abs_divide(ax, ay);
+        }
+        return -Math.abs_divide(ax, ay);
+    }
+
+    /** Returns the integer part of abs(x)/abs(y). */
+    function int abs_divide(int ax, int ay) {
+        var int q;
+        var int tmp;
+
+
+        if ((ay > ax) | (ay < 0)) {
+            return 0;
+        }
+
+        let q = Math.abs_divide(ax, ay + ay);
+        if (q = 0) {
+            return 1;
+        }
+        let tmp = q * ay;
+        if ((ax - (tmp + tmp)) < ay) {
+            return q + q;
+        } else {
+            return q + q + 1;
+        }
+    }
+
+    /** Returns the integer part of the square root of x. */
+    function int sqrt(int x) {
+        var int j;
+        var int two_power;
+        var int temp;
+        var int y;
+        let y = 0;
+        let j = 7; // n/2 -1
+
+        while (j > -1) {
+            do Output.moveCursor(j, 0);
+            let two_power = p_o_t[j];
+            let temp = y + two_power;
+            let temp = temp * temp;
+
+            if ((temp > 0) & ~(temp > x)) {
+                let y = y + two_power;
+            }
+            let j = j - 1;
+
+        }
+        return y;
+    }
+
+    /** Returns the greater number. */
+    function int max(int a, int b) {
+        if (a > b) {
+            return a;
+        }
+        return b;
+
+    }
+
+    /** Returns the smaller number. */
+    function int min(int a, int b) {
+        if (a > b) {
+            return b;
+        }
+        return a;
+    }
+
+    function boolean bit(int x, int j) {
+        return (~((p_o_t[j] & x) = 0));
+    }
+
+    function Array power_of_two() {
+        return (p_o_t);
+    }
+    function int mod(int x, int j) {
+        var int m;
+        let m = x;
+        while (m - j > 0){
+            let m = m - j;
+        }
+        if (m = j){
+            return 0;
+        }
+        return m;
+    }
+
+    function int mod16(int x) {
+        return x&15;
+    }
+}
