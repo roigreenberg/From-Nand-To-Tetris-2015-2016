@@ -2,9 +2,6 @@
 #
 # Makefile for Python project
 #
-# Students:
-# Roi Greenberg, ID 30557123, roi.greenberg@mail.huji.ac.il
-# Inbar Avni, ID 201131760, inbar.avni@mail.huji.ac.il
 #
 ###############################################################################
 
